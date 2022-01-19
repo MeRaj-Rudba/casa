@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   padding: 0;
@@ -13,4 +17,15 @@ a {
 
 * {
   box-sizing: border-box;
+}
+.page {
+  min-height: 100vh;
+}
+.bg-my-bg {
+  background: #151b26;
+}
+.my-round-image {
+  height: 120px;
+  width: 120px;
+  object-fit: cover;
 }

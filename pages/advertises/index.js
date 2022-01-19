@@ -1,9 +1,8 @@
 import Head from "next/head";
-import Image from "next/image";
-import FeaturedPosts from "../components/home/featured-posts";
-import styles from "../styles/Home.module.css";
+import React, { Fragment } from "react";
+import FeaturedPosts from "../../components/home/featured-posts";
 
-export default function Home() {
+const AdvertisePage = () => {
   const DUMMY_DATA = [
     {
       _id: "a00001",
@@ -94,4 +93,6 @@ export default function Home() {
       <FeaturedPosts posts={DUMMY_DATA} />
     </div>
   );
-}
+};
+
+export default AdvertisePage;
