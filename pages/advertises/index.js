@@ -1,85 +1,9 @@
 import Head from "next/head";
 import React, { Fragment } from "react";
 import FeaturedPosts from "../../components/home/featured-posts";
+import DUMMY_DATA from "../../data/posts";
 
 const AdvertisePage = () => {
-  const DUMMY_DATA = [
-    {
-      _id: "a00001",
-      title: "Four bedroom apartment",
-      image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267",
-      category: "Apartment",
-      address: "Bashundhara R/A",
-      price: "35,000",
-      contact: "01796000000",
-      details:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      status: "available",
-      creator: "Amy Santiago",
-      createdAt: "2022-01-18",
-      updatedAt: "2022-01-18",
-    },
-    {
-      _id: "a00002",
-      title: "Four bedroom apartment",
-      image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af",
-      category: "Apartment",
-      address: "Bashundhara R/A",
-      price: "35,000",
-      contact: "01796000000",
-      details:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      status: "available",
-      creator: "Amy Santiago",
-      createdAt: "2022-01-18",
-      updatedAt: "2022-01-18",
-    },
-    {
-      _id: "a00003",
-      title: "Four bedroom apartment",
-      image: "https://images.unsplash.com/photo-1540518614846-7eded433c457",
-      category: "Apartment",
-      address: "Bashundhara R/A",
-      price: "35,000",
-      contact: "01796000000",
-      details:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      status: "available",
-      creator: "Amy Santiago",
-      createdAt: "2022-01-18",
-      updatedAt: "2022-01-18",
-    },
-    {
-      _id: "a00004",
-      title: "Four bedroom apartment",
-      image: "https://images.unsplash.com/photo-1432303492674-642e9d0944b2",
-      category: "Apartment",
-      address: "Bashundhara R/A",
-      price: "35,000",
-      contact: "01796000000",
-      details:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      status: "available",
-      creator: "Amy Santiago",
-      createdAt: "2022-01-18",
-      updatedAt: "2022-01-18",
-    },
-    {
-      _id: "a00005",
-      title: "Four bedroom apartment",
-      image: "https://images.unsplash.com/photo-1572803090136-5247de70532f",
-      category: "Apartment",
-      address: "Bashundhara R/A",
-      price: "35,000",
-      contact: "01796000000",
-      details:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      status: "available",
-      creator: "Amy Santiago",
-      createdAt: "2022-01-18",
-      updatedAt: "2022-01-18",
-    },
-  ];
   return (
     <div className="bg-gray-900">
       <Head>
@@ -88,7 +12,7 @@ const AdvertisePage = () => {
         <link rel="icon" href="/images/logo2.png" />
       </Head>
       <h1 className="max-w-7xl mx-auto p-10 pb-0 font-semibold text-3xl text-gray-200">
-        Featured
+        All Advertises
       </h1>
       <FeaturedPosts posts={DUMMY_DATA} />
     </div>
