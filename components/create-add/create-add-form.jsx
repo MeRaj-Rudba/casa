@@ -21,24 +21,35 @@ const CreateAddForm = () => {
     setDetails("");
   };
 
-  const createAddHandler = (event) => {
+  const createAddHandler = async (event) => {
     event.preventDefault();
-
-    console.log("clicked!");
 
     const advertise = {
       title: title,
       category: category,
-      address: address,
       image: image,
+      address: address,
       price: price,
       contact: contact,
-      status: status,
       details: details,
+      status: status,
+      isFeatured: true,
     };
-    setMessage(title);
+
     console.log(advertise);
+    try {
+      const post = await fetch("http://localhost:5000/post/add-post", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(advertise),
+      });
+      console.log(`Posted.... ${post}`);
+      clearInputs();
+    } catch (error) {
+      console.log(`Error Occured!!! ${error}`);
+    }
     clearInputs();
+    // console.log(advertise);
   };
   return (
     <Fragment>
@@ -51,7 +62,7 @@ const CreateAddForm = () => {
           <div className="mb-4">
             <label
               className="block text-gray-300 text-sm font-bold mb-2"
-              for="title"
+              htmlFor="title"
             >
               Title
             </label>
@@ -69,7 +80,7 @@ const CreateAddForm = () => {
           <div className="mb-4">
             <label
               className="block text-gray-300 text-sm font-bold mb-2"
-              for="category"
+              htmlFor="category"
             >
               Category
             </label>
@@ -101,15 +112,14 @@ const CreateAddForm = () => {
           <div className="mb-4">
             <label
               className="block text-gray-300 text-sm font-bold mb-2"
-              for="image"
+              htmlFor="image"
             >
-              Image
+              ImageURL
             </label>
             <input
               className="bg-gray-300 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-purple-700"
               id="image"
-              type="file"
-              value={image}
+              type="text"
               onChange={(e) => setImage(e.target.value)}
             />
             <p class="text-red-500 text-xs italic"></p>
@@ -118,7 +128,7 @@ const CreateAddForm = () => {
           <div className="mb-4">
             <label
               className="block text-gray-300 text-sm font-bold mb-2"
-              for="address"
+              htmlFor="address"
             >
               Address
             </label>
@@ -130,20 +140,20 @@ const CreateAddForm = () => {
               value={address}
               onChange={(e) => setAddress(e.target.value)}
             />
-            <p class="text-red-500 text-xs italic"></p>
+            <p className="text-red-500 text-xs italic"></p>
           </div>
 
           <div className="mb-4">
             <label
               className="block text-gray-300 text-sm font-bold mb-2"
-              for="price"
+              htmlFor="price"
             >
               Price
             </label>
             <input
               className="bg-gray-300 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-purple-700"
               id="price"
-              type="text"
+              type="number"
               placeholder="Price"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
@@ -154,7 +164,7 @@ const CreateAddForm = () => {
           <div className="mb-4">
             <label
               className="block text-gray-300 text-sm font-bold mb-2"
-              for="contact"
+              htmlFor="contact"
             >
               Contact
             </label>
@@ -172,7 +182,7 @@ const CreateAddForm = () => {
           <div className="mb-4">
             <label
               className="block text-gray-300 text-sm font-bold mb-2"
-              for="Status"
+              htmlFor="Status"
             >
               Status
             </label>
@@ -203,7 +213,7 @@ const CreateAddForm = () => {
           <div className="mb-4">
             <label
               className="block text-gray-300 text-sm font-bold mb-2"
-              for="details"
+              htmlFor="details"
             >
               Details
             </label>

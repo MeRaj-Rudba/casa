@@ -1,7 +1,5 @@
 import Head from "next/head";
 import React, { Fragment } from "react";
-import FeaturedPosts from "../../components/home/featured-posts";
-import DUMMY_DATA from "../../data/posts";
 
 export default function AdvertisePage(props) {
   return (
@@ -14,20 +12,6 @@ export default function AdvertisePage(props) {
       <h1 className="max-w-7xl mx-auto p-10 pb-0 font-semibold text-3xl text-gray-200">
         All Advertises
       </h1>
-      <FeaturedPosts posts={props.posts} />
     </div>
   );
-}
-
-export async function getServerSideProps() {
-  // Fetch data from external API
-  const res = await fetch(`http://localhost:5000/post/posts`);
-  const posts = await res.json();
-
-  // Pass data to the page via props
-  return {
-    props: {
-      posts: posts.data,
-    },
-  };
 }

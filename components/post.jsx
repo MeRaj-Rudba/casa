@@ -1,7 +1,10 @@
 import Image from "next/image";
 import React from "react";
-
+import Link from "next/link";
+import { useRouter } from "next/router";
 const Post = ({ post }) => {
+  const link = `advertises/${post._id.toString()}`;
+  const router = useRouter();
   return (
     <div className="wrapper bg-gray-900 antialiased text-gray-900">
       <div>
@@ -66,7 +69,10 @@ const Post = ({ post }) => {
               </span>
             </div>
 
-            <button className="mt-4 text-lg font-semibold text-purple-500 hover:underline">
+            <button
+              onClick={() => router.push("/advertises/" + post._id.toString())}
+              className="mt-4 text-lg font-semibold text-purple-500 hover:underline"
+            >
               Details
             </button>
           </div>

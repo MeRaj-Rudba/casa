@@ -1,10 +1,8 @@
 import Head from "next/head";
 import Image from "next/image";
 import FeaturedPosts from "../components/home/featured-posts";
-import DUMMY_DATA from "../data/posts";
-import styles from "../styles/Home.module.css";
 
-export default function Home() {
+export default function Home(props) {
   return (
     <div className="page bg-gray-900">
       <Head>
@@ -15,14 +13,25 @@ export default function Home() {
       <h1 className="max-w-7xl mx-auto p-10 pb-0 font-semibold text-3xl text-gray-200">
         Featured
       </h1>
-      <FeaturedPosts
-        posts={DUMMY_DATA.filter((p) => {
-          if (p.isFeatured) {
-            return true;
-          }
-          return false;
-        })}
-      />
+      <FeaturedPosts posts={props.posts} />
     </div>
   );
+}
+
+export async function getStaticProps() {
+  // Fetch data from external API
+  const res = await fetch(`http://localhost:5000/post/posts`);
+  const posts = await res.json();
+
+  // Pass data to the page via props
+  return {
+    props: {
+      posts: posts.data.filter((p) => {
+        if (p.isFeatured) {
+          return true;
+        }
+        return false;
+      }),
+    },
+  };
 }

@@ -1,8 +1,9 @@
 import Head from "next/head";
 import React, { Fragment } from "react";
 import CreateAddForm from "../../components/create-add/create-add-form";
-
-const CreateAddPage = () => {
+import { useSession, getSession } from "next-auth/react";
+export default function CreateAddPage() {
+  const { data: session } = useSession();
   return (
     <div className="page bg-gray-900">
       <Head>
@@ -16,6 +17,16 @@ const CreateAddPage = () => {
       </div>
     </div>
   );
-};
+}
 
-export default CreateAddPage;
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/auth",
+        permanent: false,
+      },
+    };
+  }
+}

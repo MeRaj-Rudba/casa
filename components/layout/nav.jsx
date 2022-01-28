@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Transition } from "@headlessui/react";
 import Link from "next/link";
+import Image from "next/image";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 function Nav() {
   const [isOpen, setIsOpen] = useState(false);
+  const { data: session } = useSession();
   return (
     <div>
       <nav className="bg-gray-800">
@@ -11,9 +14,17 @@ function Nav() {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
               <div className="flex-shrink-0">
+                {/* <Image
+                  className="h-8 w-8"
+                  src="/images/logo2.png"
+                  alt="Workflow"
+                  width={100}
+                  height={100}
+                /> */}
+
                 <img
                   className="h-8 w-8"
-                  src="images/logo2.png"
+                  src="/images/logo2.png"
                   alt="Workflow"
                 />
               </div>
@@ -29,16 +40,34 @@ function Nav() {
                       Advertises
                     </span>
                   </Link>
-                  <Link href="/create-add">
-                    <span className="cursor-pointer hover:bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-medium">
-                      Create Addvertise
-                    </span>
-                  </Link>
-                  <Link href="/profile">
-                    <span className="cursor-pointer hover:bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-medium">
-                      Profile
-                    </span>
-                  </Link>
+                  {session && (
+                    <Fragment>
+                      <Link href="/create-add">
+                        <span className="cursor-pointer hover:bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-medium">
+                          Create Addvertise
+                        </span>
+                      </Link>
+                      <Link href="/profile">
+                        <span className="cursor-pointer hover:bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-medium">
+                          Profile
+                        </span>
+                      </Link>
+                    </Fragment>
+                  )}
+                  {!session ? (
+                    <Link href="/auth">
+                      <span className="cursor-pointer hover:bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-medium">
+                        Login/Registration
+                      </span>
+                    </Link>
+                  ) : (
+                    <button
+                      className=" bg-purple-600 hover:bg-pink-600 rounded px-3 py-1  text-gray-100"
+                      onClick={() => signOut()}
+                    >
+                      Log Out
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -111,16 +140,34 @@ function Nav() {
                     Advertises
                   </span>
                 </Link>
-                <Link href="/create-add">
-                  <span className="cursor-pointer hover:bg-gray-700 text-white block px-3 py-2 rounded-md text-base font-medium">
-                    Create Addvertise
-                  </span>
-                </Link>
-                <Link href="/profile">
-                  <span className="cursor-pointer hover:bg-gray-700 text-white block px-3 py-2 rounded-md text-base font-medium">
-                    Profile
-                  </span>
-                </Link>
+                {session && (
+                  <Fragment>
+                    <Link href="/create-add">
+                      <span className="cursor-pointer hover:bg-gray-700 text-white block px-3 py-2 rounded-md text-base font-medium">
+                        Create Addvertise
+                      </span>
+                    </Link>
+                    <Link href="/profile">
+                      <span className="cursor-pointer hover:bg-gray-700 text-white block px-3 py-2 rounded-md text-base font-medium">
+                        Profile
+                      </span>
+                    </Link>
+                  </Fragment>
+                )}
+                {!session ? (
+                  <Link href="/auth">
+                    <span className="cursor-pointer hover:bg-gray-700 text-white block px-3 py-2 rounded-md text-base font-medium">
+                      Login/Registration
+                    </span>
+                  </Link>
+                ) : (
+                  <button
+                    className=" bg-purple-600 hover:bg-pink-600 rounded px-3 py-1  text-gray-100"
+                    onClick={() => signOut()}
+                  >
+                    Log Out
+                  </button>
+                )}
               </div>
             </div>
           )}
