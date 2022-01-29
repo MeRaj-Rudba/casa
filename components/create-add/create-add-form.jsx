@@ -1,6 +1,6 @@
 import React, { Fragment, useRef, useState } from "react";
 
-const CreateAddForm = () => {
+const CreateAddForm = (props) => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("Apartment");
   const [address, setAddress] = useState("");
@@ -33,6 +33,7 @@ const CreateAddForm = () => {
       contact: contact,
       details: details,
       status: status,
+      creator: props.user,
       isFeatured: true,
     };
 
@@ -49,7 +50,7 @@ const CreateAddForm = () => {
       console.log(`Error Occured!!! ${error}`);
     }
     clearInputs();
-    // console.log(advertise);
+    console.log(advertise);
   };
   return (
     <Fragment>
@@ -122,7 +123,7 @@ const CreateAddForm = () => {
               type="text"
               onChange={(e) => setImage(e.target.value)}
             />
-            <p class="text-red-500 text-xs italic"></p>
+            <p className="text-red-500 text-xs italic"></p>
           </div>
 
           <div className="mb-4">

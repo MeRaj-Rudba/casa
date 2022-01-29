@@ -3,8 +3,9 @@ import React, { Fragment } from "react";
 import { useSession, getSession } from "next-auth/react";
 import { connectToDatabase } from "../../lib/db";
 import Profile from "../../components/profile/profile";
+import Posts from "../../components/profile/posts";
 
-export default function ProfilePage({ user }) {
+export default function ProfilePage({ user, posts }) {
   const { data: session } = useSession();
 
   if (session) {
@@ -16,7 +17,8 @@ export default function ProfilePage({ user }) {
           <link rel="icon" href="/images/logo2.png" />
         </Head>
 
-        <Profile user={user[0]} />
+        <Profile user={user} />
+        <Posts posts={posts} />
       </div>
     );
   }
@@ -39,6 +41,7 @@ export default function ProfilePage({ user }) {
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
+
   if (session) {
     const client = await connectToDatabase();
     const db = client.db();
@@ -49,18 +52,34 @@ export async function getServerSideProps(context) {
         email: session.user.email,
       })
       .toArray();
+
+    const user = userData.map((user) => ({
+      _id: user._id,
+      email: user.email,
+      name: user.name,
+      status: user.status,
+      gender: user.gender,
+      profilePic: user.profilePic,
+    }));
+
+    const postData = await db
+      .collection("posts")
+      .find({
+        creator: user[0]._id,
+      })
+      .toArray();
+
+    const posts = JSON.parse(JSON.stringify(postData));
+
     client.close();
 
+    const users = JSON.parse(JSON.stringify(userData));
+    // console.log("Users: ", users[0]);
+    // console.log("Posts: ", posts);
     return {
       props: {
-        user: userData.map((user) => ({
-          email: user.email,
-          name: user.name,
-          status: user.status,
-          gender: user.gender,
-          profilePic: user.profilePic,
-          posts: user.posts,
-        })),
+        user: users[0],
+        posts: posts,
         session: session,
       },
     };

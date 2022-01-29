@@ -18,7 +18,7 @@ const AddDetails = (props) => {
           <div className="grid gap-1">
             <p className="text-purple-500 flex gap-1 mb-4">
               {" "}
-              <span className="italic">By</span> {props.post.creator}
+              <span className="italic">By</span> {props.post.creator.name}
             </p>
             <p className="text-gray-400 flex gap-1 mb-2">
               <span className="bg-purple-500 text-white text-xs px-2 inline-block rounded-full  uppercase font-semibold tracking-wide">
