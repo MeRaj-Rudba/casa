@@ -1,8 +1,9 @@
+import { ObjectId } from "mongodb";
 import Head from "next/head";
 import React, { Fragment } from "react";
 import AddDetails from "../../components/details/add-details";
-import FeaturedPosts from "../../components/home/featured-posts";
-import DUMMY_DATA from "../../data/posts";
+import { connectToDatabase } from "../../lib/db";
+
 import logo from "../../public/images/logo2.png";
 
 export default function AdvertisePage(props) {
@@ -10,8 +11,8 @@ export default function AdvertisePage(props) {
     <div className="bg-gray-900">
       <Head>
         <title>{props.post.title}</title>
-        <meta name={props.post.title} content={props.post.details} />
-        <link rel="icon" href={logo} />
+        <meta name="description" content={props.post.details} />
+        <link rel="icon" href="/images/logo2.png" />
       </Head>
       <div className="page">
         <AddDetails post={props.post} />
@@ -21,25 +22,47 @@ export default function AdvertisePage(props) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch(`http://localhost:5000/post/posts`);
-  const posts = await res.json();
+  const client = await connectToDatabase();
+  const db = client.db();
+  const postData = await db.collection("posts").find().toArray();
+
+  const posts = JSON.parse(JSON.stringify(postData));
+
+  // const res = await fetch(`http://localhost:5000/post/posts`);
+  // const posts = await res.json();
+
+  const paths = posts.map((p) => ({
+    params: { addId: p._id },
+  }));
+  // console.log("Paths", paths);
 
   return {
     fallback: "blocking",
-    paths: posts.data.map((p) => ({
-      params: { addId: p._id.toString() },
-    })),
+    paths: paths,
   };
 }
 
 export async function getStaticProps(context) {
   const addId = context.params.addId;
-  const res = await fetch(`http://localhost:5000/post/posts/${addId}`);
-  const post = await res.json();
+  const client = await connectToDatabase();
+  const db = client.db();
+  const postData = await db
+    .collection("posts")
+    .find({
+      _id: ObjectId(addId),
+    })
+    .toArray();
+
+  const posts = JSON.parse(JSON.stringify(postData));
+  const post = posts[0];
+
+  // const res = await fetch(`http://localhost:5000/post/posts/${addId}`);
+  // const post = await res.json();
 
   return {
     props: {
-      post: post.data,
+      post: post,
+      // post: post.data,
     },
     revalidate: 1,
   };
