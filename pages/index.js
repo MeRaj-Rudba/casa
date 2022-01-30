@@ -20,7 +20,7 @@ export default function Home(props) {
 
 export async function getStaticProps() {
   // Fetch data from external API
-  const res = await fetch(`http://localhost:5000/post/posts`, {
+  const res = await fetch("http://localhost:5000/post/posts", {
     method: "GET",
     headers: {
       // update with your user-agent

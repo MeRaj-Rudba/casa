@@ -21,7 +21,7 @@ export default function AdvertisePage(props) {
 
 export async function getServerSideProps() {
   // Fetch data from external API
-  const res = await fetch(`http://localhost:5000/post/posts`, {
+  const res = await fetch("http://localhost:5000/post/posts", {
     method: "GET",
     headers: {
       // update with your user-agent
