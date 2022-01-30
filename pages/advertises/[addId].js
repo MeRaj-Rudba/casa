@@ -1,8 +1,8 @@
-import { ObjectId } from "mongodb";
+// import { ObjectId } from "mongodb";
 import Head from "next/head";
 import React, { Fragment } from "react";
 import AddDetails from "../../components/details/add-details";
-import { connectToDatabase } from "../../lib/db";
+// import { connectToDatabase } from "../../lib/db";
 
 export default function AdvertisePage(props) {
   return (
@@ -20,30 +20,22 @@ export default function AdvertisePage(props) {
 }
 
 export async function getStaticPaths() {
-  const client = await connectToDatabase();
-  const db = client.db();
-  const postData = await db.collection("posts").find().toArray();
+  // const client = await connectToDatabase();
+  // const db = client.db();
+  // const postData = await db.collection("posts").find().toArray();
 
-  const posts = JSON.parse(JSON.stringify(postData));
+  // const posts = JSON.parse(JSON.stringify(postData));
 
-  // const res = await fetch(`http://localhost:5000/post/posts`, {
-  //   method: "GET",
-  //   headers: {
-  //     // update with your user-agent
-  //     "User-Agent":
-  //       "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36",
-  //     Accept: "application/json; charset=UTF-8",
-  //   },
-  // });
-  // const posts = await res.json();
+  const res = await fetch(`http://localhost:5000/post/posts`);
+  const posts = await res.json();
 
-  const paths = posts.map((p) => ({
-    params: { addId: p._id.toString() },
+  const paths = posts.data.map((p) => ({
+    params: { addId: p._id },
   }));
   // console.log("Paths", paths);
 
   return {
-    fallback: true,
+    fallback: "blocking",
     paths: paths,
   };
 }
@@ -62,15 +54,7 @@ export async function getStaticProps(context) {
   // const posts = JSON.parse(JSON.stringify(postData));
   // const post = posts[0];
 
-  const res = await fetch(`http://localhost:5000/post/posts/${addId}`, {
-    method: "GET",
-    headers: {
-      // update with your user-agent
-      "User-Agent":
-        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36",
-      Accept: "application/json; charset=UTF-8",
-    },
-  });
+  const res = await fetch(`http://localhost:5000/post/posts/${addId}`);
   const post = await res.json();
 
   return {
