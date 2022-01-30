@@ -2,7 +2,7 @@
 import Head from "next/head";
 import React, { Fragment } from "react";
 import AddDetails from "../../components/details/add-details";
-// import { connectToDatabase } from "../../lib/db";
+import { connectToDatabase } from "../../lib/db";
 
 export default function AdvertisePage(props) {
   return (
@@ -20,21 +20,22 @@ export default function AdvertisePage(props) {
 }
 
 export async function getStaticPaths() {
-  // const client = await connectToDatabase();
-  // const db = client.db();
-  // const postData = await db.collection("posts").find().toArray();
+  const client = await connectToDatabase();
+  const db = client.db();
+  const postData = await db.collection("posts").find().toArray();
 
-  // const posts = JSON.parse(JSON.stringify(postData));
+  const posts = JSON.parse(JSON.stringify(postData));
 
-  const res = await fetch("http://localhost:5000/post/posts");
-  const postData = await res.json();
-  const posts = postData.data;
-  // console.log(posts[1]);
+  // const res = await fetch("http://localhost:5000/post/posts");
+  // const postData = await res.json();
+  // const postDatas = JSON.parse(JSON.stringify(postData));
+  // const posts = postData.data;
+  // console.log("Post", postDatas.data[2]);
 
   const paths = posts.map((p) => ({
     params: { addId: p._id.toString() },
   }));
-  // console.log("Paths", paths);
+  console.log("Paths", paths);
 
   return {
     fallback: "blocking",
