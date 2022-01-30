@@ -26,7 +26,15 @@ export async function getStaticPaths() {
 
   // const posts = JSON.parse(JSON.stringify(postData));
 
-  const res = await fetch(`http://localhost:5000/post/posts`);
+  const res = await fetch(`http://localhost:5000/post/posts`, {
+    method: "GET",
+    headers: {
+      // update with your user-agent
+      "User-Agent":
+        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36",
+      Accept: "application/json; charset=UTF-8",
+    },
+  });
   const posts = await res.json();
 
   const paths = posts.data.map((p) => ({
@@ -54,7 +62,15 @@ export async function getStaticProps(context) {
   // const posts = JSON.parse(JSON.stringify(postData));
   // const post = posts[0];
 
-  const res = await fetch(`http://localhost:5000/post/posts/${addId}`);
+  const res = await fetch(`http://localhost:5000/post/posts/${addId}`, {
+    method: "GET",
+    headers: {
+      // update with your user-agent
+      "User-Agent":
+        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36",
+      Accept: "application/json; charset=UTF-8",
+    },
+  });
   const post = await res.json();
 
   return {
