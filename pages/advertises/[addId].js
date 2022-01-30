@@ -27,10 +27,12 @@ export async function getStaticPaths() {
   // const posts = JSON.parse(JSON.stringify(postData));
 
   const res = await fetch("http://localhost:5000/post/posts");
-  const posts = await res.json();
+  const postData = await res.json();
+  const posts = postData.data;
+  // console.log(posts[1]);
 
-  const paths = posts.data.map((p) => ({
-    params: { addId: p._id },
+  const paths = posts.map((p) => ({
+    params: { addId: p._id.toString() },
   }));
   // console.log("Paths", paths);
 
