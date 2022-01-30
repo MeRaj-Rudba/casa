@@ -1,4 +1,4 @@
-// import { ObjectId } from "mongodb";
+import { ObjectId } from "mongodb";
 import Head from "next/head";
 import React, { Fragment } from "react";
 import AddDetails from "../../components/details/add-details";
@@ -45,25 +45,25 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   const addId = context.params.addId;
-  // const client = await connectToDatabase();
-  // const db = client.db();
-  // const postData = await db
-  //   .collection("posts")
-  //   .find({
-  //     _id: ObjectId(addId),
-  //   })
-  //   .toArray();
+  const client = await connectToDatabase();
+  const db = client.db();
+  const postData = await db
+    .collection("posts")
+    .find({
+      _id: ObjectId(addId),
+    })
+    .toArray();
 
-  // const posts = JSON.parse(JSON.stringify(postData));
-  // const post = posts[0];
+  const posts = JSON.parse(JSON.stringify(postData));
+  const post = posts[0];
 
-  const res = await fetch("http://localhost:5000/post/posts/" + addId);
-  const post = await res.json();
+  // const res = await fetch("http://localhost:5000/post/posts/" + addId);
+  // const post = await res.json();
 
   return {
     props: {
-      // post: post,
-      post: post.data,
+      post: post,
+      // post: post.data,
     },
     revalidate: 1,
   };
