@@ -1,6 +1,7 @@
 import Head from "next/head";
 import React, { Fragment } from "react";
 import FeaturedPosts from "../../components/home/featured-posts";
+import { connectToDatabase } from "../../lib/db";
 
 export default function AdvertisePage(props) {
   return (
@@ -20,17 +21,21 @@ export default function AdvertisePage(props) {
 
 export async function getServerSideProps() {
   // Fetch data from external API
-  const res = await fetch("http://localhost:5000/post/posts", {
-    method: "GET",
-    headers: {
-      // update with your user-agent
-      "User-Agent":
-        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36",
-      Accept: "application/json; charset=UTF-8",
-    },
-  });
-  const posts = await res.json();
+  // const res = await fetch("http://localhost:5000/post/posts", {
+  //   method: "GET",
+  //   headers: {
+  //     // update with your user-agent
+  //     "User-Agent":
+  //       "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36",
+  //     Accept: "application/json; charset=UTF-8",
+  //   },
+  // });
+  // const posts = await res.json();
+  const client = await connectToDatabase();
+  const db = client.db();
+  const postsData = await db.collection("posts").find().toArray();
 
+  const posts = JSON.parse(JSON.stringify(postsData));
   // Pass data to the page via props
   return {
     props: {
