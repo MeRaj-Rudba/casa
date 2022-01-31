@@ -70,7 +70,7 @@ const Post = ({ post }) => {
             </div>
 
             <button
-              onClick={() => router.push("/advertises/" + post._id.toString())}
+              onClick={() => router.push("/posts/" + post._id.toString())}
               className="mt-4 text-lg font-semibold text-purple-500 hover:underline"
             >
               Details

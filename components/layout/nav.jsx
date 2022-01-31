@@ -35,7 +35,7 @@ function Nav() {
                       Home
                     </span>
                   </Link>
-                  <Link href="/advertises">
+                  <Link href="/posts">
                     <span className="cursor-pointer hover:bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-medium">
                       Advertises
                     </span>
@@ -135,7 +135,7 @@ function Nav() {
                     Home
                   </span>
                 </Link>
-                <Link href="/advertises">
+                <Link href="/posts">
                   <span className="cursor-pointer hover:bg-gray-700 text-white block px-3 py-2 rounded-md text-base font-medium">
                     Advertises
                   </span>

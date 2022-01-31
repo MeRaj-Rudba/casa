@@ -1,7 +1,6 @@
 import Head from "next/head";
 import React, { Fragment } from "react";
 import FeaturedPosts from "../../components/home/featured-posts";
-import DUMMY_DATA from "../../data/posts";
 
 export default function AdvertisePage(props) {
   return (
