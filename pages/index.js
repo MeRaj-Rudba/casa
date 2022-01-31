@@ -34,7 +34,7 @@ export async function getStaticProps() {
   // Pass data to the page via props
   return {
     props: {
-      posts: posts.data.filter((p) => {
+      posts: posts.filter((p) => {
         if (p.isFeatured) {
           return true;
         }

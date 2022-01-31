@@ -34,7 +34,7 @@ export async function getServerSideProps() {
   // Pass data to the page via props
   return {
     props: {
-      posts: posts.data,
+      posts: posts,
     },
   };
 }
