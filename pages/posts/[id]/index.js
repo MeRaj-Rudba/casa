@@ -1,6 +1,7 @@
 import Head from "next/head";
 import React, { Fragment } from "react";
 import AddDetails from "../../../components/details/add-details";
+import { connectToDatabase } from "../../../lib/db";
 
 export default function SinglePost({ post }) {
   return (
@@ -18,10 +19,14 @@ export default function SinglePost({ post }) {
 }
 
 export async function getStaticPaths() {
+  const client = await connectToDatabase();
+  const db = client.db();
+  const posts = await db.collection("posts").find().toArray();
+
   // Call an external API endpoint to get posts
-  const res = await fetch("http://localhost:5000/post/posts");
-  const postsData = await res.json();
-  const posts = postsData.data;
+  // const res = await fetch("http://localhost:5000/post/posts");
+  // const postsData = await res.json();
+  // const posts = postsData.data;
 
   // Get the paths we want to pre-render based on posts
   const paths = posts.map((post) => ({
