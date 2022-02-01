@@ -19,7 +19,7 @@ export default function AdvertisePage(props) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const res = await fetch(`http://localhost:5000/post/posts`);
   const data = await res.json();
 
