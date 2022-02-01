@@ -1,8 +1,6 @@
-import { ObjectId } from "mongodb";
 import Head from "next/head";
 import React, { Fragment } from "react";
 import AddDetails from "../../../components/details/add-details";
-import { connectToDatabase } from "../../../lib/db";
 
 export default function SinglePost({ post }) {
   return (
@@ -20,41 +18,21 @@ export default function SinglePost({ post }) {
 }
 
 export async function getStaticPaths() {
-  const client = await connectToDatabase();
-  const db = client.db();
-  const postsData = await db.collection("posts").find().toArray();
+  const res = await fetch("https://node-casa.herokuapp.com/post/posts");
+  const posts = await res.json();
 
-  const posts = JSON.parse(JSON.stringify(postsData));
-
-  // Call an external API endpoint to get posts
-  // const res = await fetch("http://localhost:5000/post/posts");
-  // const postsData = await res.json();
-  // const posts = postsData.data;
-
-  // Get the paths we want to pre-render based on posts
   const paths = posts.map((post) => ({
     params: { id: post._id.toString() },
   }));
 
-  // We'll pre-render only these paths at build time.
-  // { fallback: false } means other routes should 404.
   return { paths, fallback: false };
 }
 
-// This also gets called at build time
 export async function getStaticProps({ params }) {
-  // params contains the post `id`.
-  // If the route is like /posts/1, then params.id is 1
-  // const res = await fetch(`http://localhost:5000/post/posts/${params.id}`);
-  // const post = await res.json();
-  const client = await connectToDatabase();
-  const db = client.db();
-  const postData = await db
-    .collection("posts")
-    .findOne({ _id: ObjectId(params.id) });
+  const res = await fetch(
+    `https://node-casa.herokuapp.com/post/posts/${params.id}`
+  );
+  const post = await res.json();
 
-  const post = JSON.parse(JSON.stringify(postData));
-
-  // Pass post data to the page via props
   return { props: { post } };
 }

@@ -20,12 +20,7 @@ export default function AdvertisePage({ posts }) {
 export async function getStaticProps() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
-  const res = await fetch("http://localhost:5000/post/posts", {
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-  });
+  const res = await fetch("https://node-casa.herokuapp.com/post/posts");
   const posts = await res.json();
 
   const allPosts = JSON.parse(JSON.stringify(posts));

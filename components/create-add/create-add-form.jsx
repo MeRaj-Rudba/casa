@@ -39,11 +39,14 @@ const CreateAddForm = (props) => {
 
     console.log(advertise);
     try {
-      const post = await fetch("http://localhost:5000/post/add-post", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(advertise),
-      });
+      const post = await fetch(
+        "https://node-casa.herokuapp.com/post/add-post",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(advertise),
+        }
+      );
       console.log(`Posted.... ${post}`);
       clearInputs();
     } catch (error) {
