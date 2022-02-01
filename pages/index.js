@@ -29,11 +29,14 @@ export async function getStaticProps() {
   });
   const posts = await res.json();
 
+  const allPosts = JSON.parse(JSON.stringify(posts));
+  console.log(allPosts);
+
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
   return {
     props: {
-      posts: posts.filter((p) => {
+      posts: allPosts.filter((p) => {
         if (p.isFeatured) {
           return true;
         }
