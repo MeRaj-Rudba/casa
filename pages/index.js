@@ -21,7 +21,12 @@ export default function Home({ posts }) {
 export async function getStaticProps() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
-  const res = await fetch("http://localhost:5000/post/posts");
+  const res = await fetch("http://localhost:5000/post/posts", {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  });
   const posts = await res.json();
 
   // By returning { props: { posts } }, the Blog component
